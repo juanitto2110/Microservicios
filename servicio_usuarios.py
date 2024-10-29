@@ -1,3 +1,4 @@
+from venv import logger
 from flask import Flask, jsonify, request
 from dotenv import load_dotenv
 import os
@@ -80,15 +81,15 @@ usuarios = [
 
 # --- Routes ---
 @app.route("/api/usuarios", methods=["GET"])
-@requires_auth
-@cached
+@requires_auth # type: ignore
+@cache
 def obtener_usuarios():
     logger.info("Solicitud recibida: GET /api/usuarios")
     return jsonify({"servicio": SERVICE_NAME, "data": usuarios, "status": "success"}) # Using configured service name
 
 @app.route("/api/usuarios/<int:usuario_id>", methods=["GET"])
-@requires_auth
-@cached
+@requires_auth # type: ignore
+@cache
 def obtener_usuario(usuario_id):
     # ... (same as before) ... 
 
@@ -99,4 +100,4 @@ def healthcheck():
 # --- End of Routes --- 
 
 if __name__ == "__main__":
-    # ... (same as before) ... 
+    # ... (same as before) ...
